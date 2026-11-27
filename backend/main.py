@@ -1,3 +1,4 @@
+import os
 import datetime
 import json
 import uuid
@@ -303,6 +304,7 @@ class ChannelScanRequest(BaseModel):
 # -----------------
 @app.get("/", response_class=HTMLResponse)
 def root_dashboard():
+    frontend_url = os.getenv("FRONTEND_URL", "https://prahari-osint.vercel.app/")
     return f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -454,7 +456,7 @@ def root_dashboard():
         </div>
 
         <div class="links">
-          <a class="btn btn-primary" href="http://localhost:5173" target="_blank">
+          <a class="btn btn-primary" href="{frontend_url}" target="_blank">
             <span>Launch Web Command Center UI</span>
             <span>&rarr;</span>
           </a>
@@ -478,7 +480,7 @@ def root_dashboard():
 
         <div class="footer">
           <span>RAJASTHAN POLICE · R4C HACKATHON 2026</span>
-          <span>WEBSOCKET: ws://localhost:8000/ws/stream</span>
+          <span>WEBSOCKET: wss://prahari-osint.onrender.com/ws/stream</span>
         </div>
       </div>
     </body>
