@@ -15,6 +15,42 @@ interface LiveInterceptFeedProps {
   onToggleSimulate: () => void;
 }
 
+const formatFeedTimestamp = (timestamp?: string, capturedAt?: string): string => {
+  let date: Date | null = null;
+  if (timestamp && timestamp !== 'Just now') {
+    const parsed = new Date(timestamp);
+    if (!isNaN(parsed.getTime())) {
+      date = parsed;
+    }
+  }
+
+  if (!date) {
+    date = new Date();
+  }
+
+  try {
+    const formatter = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    const parts = formatter.formatToParts(date);
+    const day = parts.find((p) => p.type === 'day')?.value || '27';
+    const month = (parts.find((p) => p.type === 'month')?.value || 'NOV').toUpperCase();
+    const year = parts.find((p) => p.type === 'year')?.value || '2026';
+    const hour = parts.find((p) => p.type === 'hour')?.value || '13';
+    const minute = parts.find((p) => p.type === 'minute')?.value || '04';
+
+    return `${day} ${month} ${year} · ${hour}:${minute} IST`;
+  } catch {
+    return '27 NOV 2026 · 13:04 IST';
+  }
+};
+
 export const LiveInterceptFeed: React.FC<LiveInterceptFeedProps> = ({
   posts,
   selectedPost,
@@ -292,13 +328,9 @@ export const LiveInterceptFeed: React.FC<LiveInterceptFeedProps> = ({
 
                 {/* Footer Telemetry */}
                 <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-white/[0.04] font-mono">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-slate-600" />
-                    {new Date(post.timestamp).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}{' '}
-                    UTC
+                  <span className="flex items-center gap-1 font-mono text-[10px] text-slate-400">
+                    <Clock className="w-3 h-3 text-cyan-400/80" />
+                    {formatFeedTimestamp(post.timestamp, post.capturedAt)}
                   </span>
                   
                   {onExploreTopology && (

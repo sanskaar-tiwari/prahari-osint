@@ -25,12 +25,31 @@ export const DISTRICT_NAME_NORMALIZATION: Record<string, string> = {
   chittaurgarh: 'Chittorgarh',
   dhaulpur: 'Dholpur',
   'sri ganganagar': 'Sri Ganganagar',
+  'sri-ganganagar': 'Sri Ganganagar',
   jalore: 'Jalore',
   jhunjhunu: 'Jhunjhunu',
   chittorgarh: 'Chittorgarh',
   dholpur: 'Dholpur',
   'sawai madhopur': 'Sawai Madhopur',
+  'sawai-madhopur': 'Sawai Madhopur',
   sawaimadhopur: 'Sawai Madhopur',
+  balotra: 'Balotra',
+  beawar: 'Beawar',
+  deeg: 'Deeg',
+  'didwana-kuchaman': 'Didwana-Kuchaman',
+  didwana: 'Didwana-Kuchaman',
+  kuchaman: 'Didwana-Kuchaman',
+  'didwana kuchaman': 'Didwana-Kuchaman',
+  'kotputli-behror': 'Kotputli-Behror',
+  kotputli: 'Kotputli-Behror',
+  behror: 'Kotputli-Behror',
+  'kotputli behror': 'Kotputli-Behror',
+  'khairthal-tijara': 'Khairthal-Tijara',
+  khairthal: 'Khairthal-Tijara',
+  tijara: 'Khairthal-Tijara',
+  'khairthal tijara': 'Khairthal-Tijara',
+  phalodi: 'Phalodi',
+  salumbar: 'Salumbar',
 };
 
 export const normalizeDistrictName = (rawName?: string | null): string => {
@@ -199,9 +218,9 @@ export const RajasthanMap: React.FC<RajasthanMapProps> = ({
       <div className="absolute inset-0 radar-grid opacity-5 pointer-events-none" />
 
       {/* Floating Administrative Structure Badge (Top Left) */}
-      <div className="absolute top-3.5 left-4 z-20 hidden sm:flex items-center gap-2">
-        <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-xl text-xs font-mono">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+      <div className="absolute top-3.5 left-4 z-20 hidden md:flex items-center gap-2">
+        <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-xl text-[11px] font-mono">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
           <span className="text-white font-semibold">RAJASTHAN MESH</span>
           <span className="text-slate-500">|</span>
           <span className="text-cyan-300 font-bold">41 DISTRICTS · 7 DIVISIONS</span>
@@ -606,7 +625,9 @@ export const RajasthanMap: React.FC<RajasthanMapProps> = ({
                       ({hoveredDistrict.hindiName})
                     </span>
                   </div>
-                  <div className="text-[10px] text-slate-400 font-sans mt-0.5">District Intelligence</div>
+                  <div className="text-[10px] text-cyan-400 font-mono mt-0.5">
+                    {hoveredDistrict.division ? `${hoveredDistrict.division.toUpperCase()} DIVISION` : 'DISTRICT INTELLIGENCE'}
+                  </div>
                 </div>
                 <span
                   className="px-2 py-0.5 rounded text-[9px] font-sans font-semibold"
@@ -621,6 +642,13 @@ export const RajasthanMap: React.FC<RajasthanMapProps> = ({
               </div>
 
               <div className="mt-2.5 space-y-1.5 text-[11px] font-sans">
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-400">Division:</span>
+                  <span className="text-cyan-300 font-mono font-medium text-[10px]">
+                    {hoveredDistrict.division || 'Rajasthan'} Division
+                  </span>
+                </div>
+
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400">Flagged Cases:</span>
                   <span className="text-slate-200 font-mono font-medium">

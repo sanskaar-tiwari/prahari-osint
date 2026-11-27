@@ -186,10 +186,10 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
       const now = new Date();
 
       const newPost: InterceptPost = {
-        id: `sim_${Date.now().toString().slice(-4)}`,
+        id: `sim_${Date.now()}_${idx}_${Math.random().toString(36).slice(2, 6)}`,
         channel: sim.channel,
         channelSubscribers: '14.2K members',
-        timestamp: 'Just now',
+        timestamp: now.toISOString(),
         capturedAt: now.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST',
         rawText: sim.text,
         categories: detected.categories,
