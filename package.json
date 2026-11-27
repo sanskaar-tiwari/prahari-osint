@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "d3-geo": "^3.1.2",
     "framer-motion": "^12.4.7",
     "jspdf": "^2.5.2",
     "lucide-react": "^0.475.0",
@@ -17,6 +18,7 @@
     "react-simple-maps": "^5.0.5"
   },
   "devDependencies": {
+    "@types/d3-geo": "^3.1.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@types/react-simple-maps": "^3.0.6",
