@@ -29,8 +29,8 @@ const UPSTREAM_RAJASTHAN_GEOJSON_URL =
 // Local bundled 41-district fallback GeoJSON
 const LOCAL_FALLBACK_GEOJSON_URL = '/rajasthan_districts.geojson';
 
-const CACHE_KEY = 'prahari_rajasthan_geojson_v2';
-const CACHE_TIMESTAMP_KEY = 'prahari_rajasthan_geojson_ts_v2';
+const CACHE_KEY = 'prahari_rajasthan_geojson_v3';
+const CACHE_TIMESTAMP_KEY = 'prahari_rajasthan_geojson_ts_v3';
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 function isValid41DistrictGeoJSON(data: any): data is RajasthanFeatureCollection {
