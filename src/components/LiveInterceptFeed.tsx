@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Search, Upload, AlertCircle, Clock, Eye, Radio, Sparkles, Network } from 'lucide-react';
+import { Search, Upload, AlertCircle, Clock, Network, Check } from 'lucide-react';
 import { InterceptPost, CrimeCategory } from '../types';
 import { sound } from '../utils/audio';
+import { renderHighlightedText } from '../utils/highlightIdentifiers';
 
 interface LiveInterceptFeedProps {
   posts: InterceptPost[];
@@ -64,6 +65,17 @@ export const LiveInterceptFeed: React.FC<LiveInterceptFeedProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [minConfidence, setMinConfidence] = useState(0.85);
+  const [copiedChip, setCopiedChip] = useState<string | null>(null);
+
+  const handleCopyIdentifier = (e: React.MouseEvent, chipKey: string, value: string) => {
+    e.stopPropagation();
+    sound.playClick();
+    navigator.clipboard?.writeText(value);
+    setCopiedChip(chipKey);
+    setTimeout(() => {
+      setCopiedChip((prev) => (prev === chipKey ? null : prev));
+    }, 1500);
+  };
 
   const categories: (CrimeCategory | 'ALL')[] = [
     'ALL',
@@ -111,29 +123,6 @@ export const LiveInterceptFeed: React.FC<LiveInterceptFeedProps> = ({
       case 'FINANCIAL':
         return 'bg-emerald-400';
     }
-  };
-
-  // Sleek subtle keyword highlighter without harsh background boxes
-  const highlightSlang = (text: string, matchedTerms: string[]) => {
-    if (!matchedTerms || matchedTerms.length === 0) return text;
-
-    const escaped = matchedTerms
-      .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-      .join('|');
-    if (!escaped) return text;
-    const regex = new RegExp(`(${escaped})`, 'gi');
-
-    const parts = text.split(regex);
-    return parts.map((part, index) => {
-      if (regex.test(part)) {
-        return (
-          <span key={index} className="text-rose-400 font-medium tracking-tight">
-            {part}
-          </span>
-        );
-      }
-      return part;
-    });
   };
 
   return (
@@ -293,64 +282,170 @@ export const LiveInterceptFeed: React.FC<LiveInterceptFeedProps> = ({
                   </div>
                 </div>
 
-                {/* Raw Text with Subtle Highlight */}
+                {/* Raw Text with Inline Color-Coded Identifier & Threat Highlighting */}
                 <p className="text-slate-300 font-sans text-xs leading-relaxed mb-2.5">
-                  "{highlightSlang(post.rawText, post.matchedSlang)}"
+                  "{renderHighlightedText(post.rawText, post.matchedSlang)}"
                 </p>
 
-                {/* Extracted Identifiers (Minimal uniform monospace chips) */}
-                <div className="flex flex-wrap gap-1.5 mb-2.5">
-                  {post.entities.upis.map((u) => (
-                    <span
-                      key={u}
-                      className="bg-white/[0.03] text-slate-300 border border-white/[0.06] px-2 py-0.5 rounded font-mono text-[10px]"
-                    >
-                      UPI: <span className="text-cyan-300 font-medium">{u}</span>
-                    </span>
-                  ))}
-                  {post.entities.phones.map((p) => (
-                    <span
-                      key={p}
-                      className="bg-white/[0.03] text-slate-300 border border-white/[0.06] px-2 py-0.5 rounded font-mono text-[10px]"
-                    >
-                      TEL: <span className="text-amber-300 font-medium">{p}</span>
-                    </span>
-                  ))}
-                  {post.entities.wallets.map((w) => (
-                    <span
-                      key={w}
-                      className="bg-white/[0.03] text-slate-300 border border-white/[0.06] px-2 py-0.5 rounded font-mono text-[10px]"
-                    >
-                      CRYPTO: <span className="text-rose-300 font-medium">{w.slice(0, 10)}…</span>
-                    </span>
-                  ))}
-                </div>
+                {/* Complete Click-to-Copy Entity Chips Row */}
+                {(post.entities.upis.length > 0 ||
+                  post.entities.phones.length > 0 ||
+                  post.entities.bankAccounts.length > 0 ||
+                  post.entities.wallets.length > 0 ||
+                  post.entities.handles.length > 0) && (
+                  <div className="flex flex-wrap gap-1.5 mb-2.5">
+                    {post.entities.upis.map((u, idx) => {
+                      const chipKey = `${post.id}-upi-${idx}`;
+                      const isCopied = copiedChip === chipKey;
+                      return (
+                        <button
+                          key={chipKey}
+                          type="button"
+                          onClick={(e) => handleCopyIdentifier(e, chipKey, u)}
+                          title="Click to copy UPI ID"
+                          className="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-200 border border-cyan-500/30 px-2 py-0.5 rounded font-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer"
+                        >
+                          {isCopied ? (
+                            <span className="text-emerald-300 flex items-center gap-1">
+                              <Check className="w-2.5 h-2.5" /> Copied
+                            </span>
+                          ) : (
+                            <>
+                              <span className="text-cyan-400/80">UPI:</span>
+                              <span className="font-medium">{u}</span>
+                            </>
+                          )}
+                        </button>
+                      );
+                    })}
+                    {post.entities.phones.map((p, idx) => {
+                      const chipKey = `${post.id}-tel-${idx}`;
+                      const isCopied = copiedChip === chipKey;
+                      return (
+                        <button
+                          key={chipKey}
+                          type="button"
+                          onClick={(e) => handleCopyIdentifier(e, chipKey, p)}
+                          title="Click to copy Phone Number"
+                          className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-200 border border-amber-500/30 px-2 py-0.5 rounded font-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer"
+                        >
+                          {isCopied ? (
+                            <span className="text-emerald-300 flex items-center gap-1">
+                              <Check className="w-2.5 h-2.5" /> Copied
+                            </span>
+                          ) : (
+                            <>
+                              <span className="text-amber-400/80">TEL:</span>
+                              <span className="font-medium">{p}</span>
+                            </>
+                          )}
+                        </button>
+                      );
+                    })}
+                    {post.entities.bankAccounts.map((b, idx) => {
+                      const chipKey = `${post.id}-ac-${idx}`;
+                      const isCopied = copiedChip === chipKey;
+                      return (
+                        <button
+                          key={chipKey}
+                          type="button"
+                          onClick={(e) => handleCopyIdentifier(e, chipKey, b)}
+                          title="Click to copy Bank Account / IFSC"
+                          className="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-200 border border-emerald-500/30 px-2 py-0.5 rounded font-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer"
+                        >
+                          {isCopied ? (
+                            <span className="text-emerald-300 flex items-center gap-1">
+                              <Check className="w-2.5 h-2.5" /> Copied
+                            </span>
+                          ) : (
+                            <>
+                              <span className="text-emerald-400/80">A/C:</span>
+                              <span className="font-medium">{b}</span>
+                            </>
+                          )}
+                        </button>
+                      );
+                    })}
+                    {post.entities.wallets.map((w, idx) => {
+                      const chipKey = `${post.id}-btc-${idx}`;
+                      const isCopied = copiedChip === chipKey;
+                      return (
+                        <button
+                          key={chipKey}
+                          type="button"
+                          onClick={(e) => handleCopyIdentifier(e, chipKey, w)}
+                          title={`Click to copy Crypto Wallet: ${w}`}
+                          className="bg-purple-500/10 hover:bg-purple-500/20 text-purple-200 border border-purple-500/30 px-2 py-0.5 rounded font-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer"
+                        >
+                          {isCopied ? (
+                            <span className="text-emerald-300 flex items-center gap-1">
+                              <Check className="w-2.5 h-2.5" /> Copied
+                            </span>
+                          ) : (
+                            <>
+                              <span className="text-purple-400/80">BTC:</span>
+                              <span className="font-medium">
+                                {w.length > 16 ? `${w.slice(0, 12)}…` : w}
+                              </span>
+                            </>
+                          )}
+                        </button>
+                      );
+                    })}
+                    {post.entities.handles.map((h, idx) => {
+                      const chipKey = `${post.id}-handle-${idx}`;
+                      const isCopied = copiedChip === chipKey;
+                      return (
+                        <button
+                          key={chipKey}
+                          type="button"
+                          onClick={(e) => handleCopyIdentifier(e, chipKey, h)}
+                          title="Click to copy Telegram Handle"
+                          className="bg-sky-500/10 hover:bg-sky-500/20 text-sky-200 border border-sky-500/30 px-2 py-0.5 rounded font-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer"
+                        >
+                          {isCopied ? (
+                            <span className="text-emerald-300 flex items-center gap-1">
+                              <Check className="w-2.5 h-2.5" /> Copied
+                            </span>
+                          ) : (
+                            <>
+                              <span className="text-sky-400/80">HANDLE:</span>
+                              <span className="font-medium">{h}</span>
+                            </>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
 
                 {/* Footer Telemetry */}
-                <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-white/[0.04] font-mono">
-                  <span className="flex items-center gap-1 font-mono text-[10px] text-slate-400">
-                    <Clock className="w-3 h-3 text-cyan-400/80" />
-                    {formatFeedTimestamp(post.timestamp, post.capturedAt)}
+                <div className="flex items-center justify-between gap-2 flex-nowrap text-[10px] text-slate-500 pt-2 border-t border-white/[0.04] font-mono">
+                  <span className="flex items-center gap-1 font-mono text-[10px] text-slate-400 whitespace-nowrap truncate min-w-0">
+                    <Clock className="w-3 h-3 text-cyan-400/80 shrink-0" />
+                    <span className="truncate">{formatFeedTimestamp(post.timestamp, post.capturedAt)}</span>
                   </span>
-                  
-                  {onExploreTopology && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        sound.playClick();
-                        onExploreTopology(post);
-                      }}
-                      className="flex items-center gap-1 text-[10px] font-mono text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-500/30 transition-all shadow-[0_0_8px_rgba(0,229,255,0.15)]"
-                      title="Inspect 3D Entity Topology for this case"
-                    >
-                      <Network className="w-2.5 h-2.5 text-cyan-400" />
-                      <span>3D TOPOLOGY</span>
-                    </button>
-                  )}
 
-                  <span className="text-emerald-400 font-sans text-[10px]">
-                    Sec 63 BSA ✓
-                  </span>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {onExploreTopology && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          sound.playClick();
+                          onExploreTopology(post);
+                        }}
+                        className="whitespace-nowrap shrink-0 flex items-center gap-1 text-[10px] font-mono text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-500/30 transition-all shadow-[0_0_8px_rgba(0,229,255,0.15)]"
+                        title="Inspect 3D Entity Topology for this case"
+                      >
+                        <Network className="w-2.5 h-2.5 text-cyan-400 shrink-0" />
+                        <span>3D TOPOLOGY</span>
+                      </button>
+                    )}
+
+                    <span className="whitespace-nowrap shrink-0 px-2 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[11px] font-mono">
+                      SEC 63 BSA ✓
+                    </span>
+                  </div>
                 </div>
               </div>
             );

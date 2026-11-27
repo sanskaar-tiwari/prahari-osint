@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu,
@@ -43,6 +43,7 @@ import {
 import { sound } from '../utils/audio';
 import { generateDossierPDF } from '../utils/pdfGenerator';
 import { classifyText, generateSHA256 } from '../utils/detectionEngine';
+import { renderHighlightedText } from '../utils/highlightIdentifiers';
 import { prahariApi } from '../services/api';
 
 interface WarMonitorLiveAppProps {
@@ -75,6 +76,73 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
   const [copiedHash, setCopiedHash] = useState(false);
   const [isMuted, setIsMuted] = useState(!sound.enabled);
   const [clockUtc, setClockUtc] = useState('');
+
+  // Active filtered intercepts (respecting category filter)
+  const activeFilteredPosts = useMemo(() => {
+    if (activeCategory === 'ALL') return posts;
+    return posts.filter((p) => p.categories.includes(activeCategory));
+  }, [posts, activeCategory]);
+
+  // Dynamically compute cross-district syndicate connection arcs from shared identifiers
+  const dynamicConnections = useMemo<DistrictConnection[]>(() => {
+    type IdEntry = {
+      districtId: string;
+      category: CrimeCategory;
+      type: DistrictConnection['type'];
+      rawId: string;
+    };
+    const index = new Map<string, IdEntry[]>();
+
+    const addEntry = (
+      raw: string,
+      type: DistrictConnection['type'],
+      districtId: string,
+      category: CrimeCategory
+    ) => {
+      const norm = raw.trim().toLowerCase();
+      if (!norm || !districtId) return;
+      const list = index.get(norm) || [];
+      if (!list.some((item) => item.districtId.toLowerCase() === districtId.toLowerCase())) {
+        list.push({ districtId: districtId.toLowerCase(), category, type, rawId: raw });
+        index.set(norm, list);
+      }
+    };
+
+    for (const p of activeFilteredPosts) {
+      const cat = p.categories[0] || 'DRUGS';
+      const dist = (p.districtId || '').toLowerCase();
+      p.entities.upis.forEach((u) => addEntry(u, 'UPI', dist, cat));
+      p.entities.phones.forEach((ph) => addEntry(ph.replace(/\s+/g, ''), 'PHONE', dist, cat));
+      p.entities.bankAccounts.forEach((b) => addEntry(b, 'BANK', dist, cat));
+      p.entities.wallets.forEach((w) => addEntry(w, 'CRYPTO', dist, cat));
+      p.entities.handles.forEach((h) => addEntry(h, 'TELEGRAM', dist, cat));
+    }
+
+    const result: DistrictConnection[] = [];
+    const seenPairs = new Set<string>();
+
+    index.forEach((entries) => {
+      if (entries.length < 2) return;
+      for (let i = 0; i < entries.length - 1; i++) {
+        const a = entries[i];
+        const b = entries[i + 1];
+        if (a.districtId === b.districtId) continue;
+        const pairKey = [a.districtId, b.districtId].sort().join('::') + `::${a.type}`;
+        if (seenPairs.has(pairKey)) continue;
+        seenPairs.add(pairKey);
+        result.push({
+          id: `dyn-${a.districtId}-${b.districtId}-${a.type}-${result.length}`,
+          from: a.districtId,
+          to: b.districtId,
+          identifier: a.rawId,
+          type: a.type,
+          category: a.category,
+        });
+      }
+    });
+
+    return result;
+  }, [activeFilteredPosts]);
 
   // Global shortcut: Cmd + K / Ctrl + K to toggle OSINT Search
   useEffect(() => {
@@ -509,7 +577,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
 
               <RajasthanMap
                 districts={districts}
-                connections={connections}
+                connections={dynamicConnections}
                 selectedDistrict={selectedDistrict}
                 highlightedDistrictIds={highlightedDistricts}
                 onSelectDistrict={(district) => {
@@ -617,6 +685,43 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                     </span>
                   </div>
 
+                  {/* Tactical Intercept Selector Dropdown */}
+                  <div>
+                    <select
+                      aria-label="Select Active Intercept"
+                      value={selectedPost.id}
+                      onChange={(e) => {
+                        const chosen = posts.find((p) => p.id === e.target.value);
+                        if (chosen) {
+                          sound.playClick();
+                          setSelectedPost(chosen);
+                          const matchedDist = districts.find(
+                            (d) =>
+                              d.id.toLowerCase() === chosen.districtId?.toLowerCase() ||
+                              d.name.toLowerCase() === chosen.districtName?.toLowerCase()
+                          );
+                          if (matchedDist) {
+                            setSelectedDistrict(matchedDist);
+                          }
+                        }
+                      }}
+                      className="w-full bg-[#070A10] border border-white/[0.1] hover:border-cyan-500/40 text-slate-200 text-[11px] font-mono rounded-lg px-2.5 py-2 focus:outline-none focus:border-cyan-400 transition-colors cursor-pointer"
+                    >
+                      {activeFilteredPosts.map((p) => {
+                        const cat = p.categories[0] || 'INTEL';
+                        const catLabel =
+                          cat === 'DOCUMENTS'
+                            ? 'Docs'
+                            : cat.charAt(0) + cat.slice(1).toLowerCase();
+                        return (
+                          <option key={p.id} value={p.id} className="bg-[#0C101A] text-slate-200">
+                            {`${p.channel} · ${p.districtName} · ${catLabel} · ${(p.confidence * 100).toFixed(0)}% MATCH`}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+
                   {/* Channel & Confidence */}
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-mono text-cyan-300 font-medium">{selectedPost.channel}</span>
@@ -625,9 +730,9 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                     </span>
                   </div>
 
-                  {/* Raw Text Snippet */}
+                  {/* Raw Text Snippet with Inline Color-Coded Identifier Highlighting */}
                   <p className="text-xs text-slate-300 leading-relaxed bg-[#070A10] p-2.5 rounded-lg border border-white/[0.05]">
-                    "{selectedPost.rawText}"
+                    "{renderHighlightedText(selectedPost.rawText, selectedPost.matchedSlang)}"
                   </p>
 
                   {/* Monospace SHA-256 Hash Box */}
@@ -699,9 +804,9 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                     </div>
                   </div>
 
-                  <div className="text-[11px] text-slate-400 pt-1">
+                  <div className="text-[11px] text-slate-400 pt-1 break-all">
                     <span className="text-slate-500 font-mono text-[10px]">MONITORED IDS: </span>
-                    <span className="text-cyan-300 font-mono">{selectedDistrict.topIdentifiers.join(', ')}</span>
+                    <span className="text-cyan-300 font-mono break-all">{selectedDistrict.topIdentifiers.join(', ')}</span>
                   </div>
 
                   <button

@@ -60,7 +60,7 @@ export interface DistrictConnection {
   from: string; // district id
   to: string; // district id
   identifier: string; // e.g. raj.pay@oksbi
-  type: 'UPI' | 'PHONE' | 'CRYPTO' | 'TELEGRAM';
+  type: 'UPI' | 'PHONE' | 'CRYPTO' | 'TELEGRAM' | 'BANK';
   category: CrimeCategory;
 }
 
