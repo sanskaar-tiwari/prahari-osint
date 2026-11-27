@@ -397,7 +397,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
         </div>
 
         {/* Persistent Monospace Tactical Search Bar Trigger (Cmd + K / Ctrl + K) */}
-        <div className="flex-1 max-w-sm lg:max-w-md mx-3 hidden md:block">
+        <div className="flex-1 min-w-0 max-w-sm lg:max-w-md mx-3 hidden xl:block">
           <button
             onClick={() => {
               sound.playClick();
@@ -419,28 +419,28 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
         </div>
 
         {/* Right Section: Telemetry pill, Clock, Audio & Ingest Button */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0 whitespace-nowrap">
           {/* Mobile Search Button */}
           <button
             onClick={() => {
               sound.playClick();
               setIsSearchOpen(true);
             }}
-            className="md:hidden p-1.5 text-cyan-400 hover:text-cyan-300 hover:bg-white/[0.05] rounded-lg transition-colors border border-cyan-500/30"
+            className="xl:hidden p-1.5 text-cyan-400 hover:text-cyan-300 hover:bg-white/[0.05] rounded-lg transition-colors border border-cyan-500/30"
             title="Global Search (⌘K)"
           >
             <Search className="w-3.5 h-3.5" />
           </button>
           {/* Real Backend Status Pill */}
           {isBackendLive && (
-            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[10px] font-mono">
+            <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[10px] font-mono shrink-0 whitespace-nowrap">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>PYTHON OSINT: ONLINE</span>
             </div>
           )}
 
           {/* Status Pill */}
-          <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300 text-[11px] font-sans font-medium">
+          <div className="hidden 2xl:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300 text-[11px] font-sans font-medium shrink-0 whitespace-nowrap">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
             <span>DEFCON 2 · ELEVATED</span>
           </div>
@@ -448,7 +448,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
           <div className="h-4 w-px bg-white/[0.08] hidden sm:block" />
 
           {/* Clock */}
-          <span className="text-slate-400 font-mono text-[11px] hidden sm:inline">
+          <span className="text-slate-400 font-mono text-[11px] hidden sm:inline whitespace-nowrap shrink-0">
             {clockUtc}
           </span>
 
@@ -471,7 +471,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
               sound.playClick();
               setIsUploadModalOpen(true);
             }}
-            className="bg-cyan-400 hover:bg-cyan-300 text-slate-950 px-3 py-1 rounded-md text-xs font-sans font-semibold transition-all shadow-[0_0_12px_rgba(34,211,238,0.25)]"
+            className="bg-cyan-400 hover:bg-cyan-300 text-slate-950 px-3 py-1 rounded-md text-xs font-sans font-semibold transition-all shadow-[0_0_12px_rgba(34,211,238,0.25)] shrink-0 whitespace-nowrap"
           >
             IMPORT INTEL
           </button>
@@ -732,7 +732,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                   </div>
 
                   {/* Raw Text Snippet with Inline Color-Coded Identifier Highlighting */}
-                  <p className="text-xs text-slate-300 leading-relaxed bg-[#070A10] p-2.5 rounded-lg border border-white/[0.05]">
+                  <p className="text-xs text-slate-300 leading-relaxed bg-[#070A10] p-2.5 rounded-lg border border-white/[0.05] break-words [overflow-wrap:anywhere]">
                     "{renderHighlightedText(selectedPost.rawText, selectedPost.matchedSlang)}"
                   </p>
 

@@ -553,9 +553,9 @@ export const RajasthanMap: React.FC<RajasthanMapProps> = ({
   return (
     <div className="relative w-full h-full bg-[#070A10] overflow-hidden flex flex-col select-none">
       {/* Top Map Header Bar: Badge (Left) + Controls (Right) */}
-      <div className="absolute top-3.5 left-4 right-4 z-20 flex items-center justify-between gap-2 pointer-events-none">
+      <div className="absolute top-3.5 left-4 right-4 z-20 flex flex-wrap items-start justify-between gap-2 pointer-events-none">
         {/* Floating Administrative Structure Badge */}
-        <div className="hidden lg:flex items-center gap-2 pointer-events-auto">
+        <div className="hidden md:flex items-center gap-2 pointer-events-auto max-w-full">
           <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-2.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-xl text-[10px] xl:text-[11px] font-mono whitespace-nowrap">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shrink-0" />
             <span className="text-white font-semibold">RAJASTHAN</span>
@@ -565,7 +565,7 @@ export const RajasthanMap: React.FC<RajasthanMapProps> = ({
         </div>
 
         {/* Floating Compact Glass Toolbar */}
-        <div className="ml-auto flex items-center gap-2 pointer-events-auto">
+        <div className="ml-auto flex items-center gap-2 pointer-events-auto max-w-full">
           <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-2.5 py-1.5 rounded-xl flex items-center gap-2 shadow-xl">
             <button
               onClick={() => {

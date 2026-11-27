@@ -259,31 +259,31 @@ export const LiveInterceptFeed: React.FC<LiveInterceptFeedProps> = ({
                 }`}
               >
                 {/* Post Header: Channel, Category Indicator, Confidence */}
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-medium text-xs text-slate-200">
+                <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mb-2">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="font-mono font-medium text-xs text-slate-200 truncate min-w-0">
                       {post.channel}
                     </span>
-                    <span className="text-[10px] text-slate-500">
+                    <span className="text-[10px] text-slate-500 truncate shrink-0 max-w-[90px]">
                       · {post.districtName}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 shrink-0">
                     {post.categories.map((c) => (
                       <span key={c} className="flex items-center gap-1 text-[10px] font-sans text-slate-400">
                         <span className={`w-1.5 h-1.5 rounded-full ${getCategoryDot(c)}`} />
                         <span>{c === 'DOCUMENTS' ? 'Docs' : c.charAt(0) + c.slice(1).toLowerCase()}</span>
                       </span>
                     ))}
-                    <span className="font-mono text-[10px] text-cyan-400/90 font-semibold bg-cyan-950/40 border border-cyan-500/20 px-1.5 py-0.2 rounded">
+                    <span className="font-mono text-[10px] text-cyan-400/90 font-semibold bg-cyan-950/40 border border-cyan-500/20 px-1.5 py-0.2 rounded whitespace-nowrap">
                       {(post.confidence * 100).toFixed(0)}%
                     </span>
                   </div>
                 </div>
 
                 {/* Raw Text with Inline Color-Coded Identifier & Threat Highlighting */}
-                <p className="text-slate-300 font-sans text-xs leading-relaxed mb-2.5">
+                <p className="text-slate-300 font-sans text-xs leading-relaxed mb-2.5 break-words [overflow-wrap:anywhere]">
                   "{renderHighlightedText(post.rawText, post.matchedSlang)}"
                 </p>
 
