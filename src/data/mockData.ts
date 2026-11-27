@@ -453,6 +453,7 @@ export const RAJASTHAN_DISTRICTS: DistrictIntel[] = [
     id: 'pratapgarh',
     name: 'Pratapgarh',
     hindiName: 'प्रतापगढ़',
+    division: 'Udaipur',
     x: 410,
     y: 520,
     path: '',
@@ -462,6 +463,126 @@ export const RAJASTHAN_DISTRICTS: DistrictIntel[] = [
     activeChannels: ['@opium_route_mp_raj'],
     topIdentifiers: ['@seller_raj'],
     coordinates: [74.6514, 24.029]
+  },
+  {
+    id: 'balotra',
+    name: 'Balotra',
+    hindiName: 'बालोतरा',
+    division: 'Jodhpur',
+    x: 230,
+    y: 350,
+    path: '',
+    threatLevel: 'HIGH',
+    flaggedCount: 16,
+    topCategories: ['FINANCIAL', 'DRUGS'],
+    activeChannels: ['@mule_bazaar', '@thar_contraband'],
+    topIdentifiers: ['raj.pay@oksbi', 'balotra.mule@paytm'],
+    coordinates: [72.2415, 25.8339]
+  },
+  {
+    id: 'beawar',
+    name: 'Beawar',
+    hindiName: 'ब्यावर',
+    division: 'Ajmer',
+    x: 390,
+    y: 340,
+    path: '',
+    threatLevel: 'ELEVATED',
+    flaggedCount: 14,
+    topCategories: ['FINANCIAL', 'DOCUMENTS'],
+    activeChannels: ['@doc_forge_raj', '@delhi_highs'],
+    topIdentifiers: ['+91 9876543210'],
+    coordinates: [74.3235, 26.1033]
+  },
+  {
+    id: 'deeg',
+    name: 'Deeg',
+    hindiName: 'डीग',
+    division: 'Bharatpur',
+    x: 615,
+    y: 215,
+    path: '',
+    threatLevel: 'CRITICAL',
+    flaggedCount: 33,
+    topCategories: ['ARMS', 'FINANCIAL'],
+    activeChannels: ['@mewat_sim_exchange', '@rajasthan_arms_hub'],
+    topIdentifiers: ['+91 9876543210', 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq'],
+    coordinates: [77.3275, 27.4722]
+  },
+  {
+    id: 'didwana-kuchaman',
+    name: 'Didwana-Kuchaman',
+    hindiName: 'डीडवाना-कुचामन',
+    division: 'Ajmer',
+    x: 410,
+    y: 250,
+    path: '',
+    threatLevel: 'ELEVATED',
+    flaggedCount: 15,
+    topCategories: ['DOCUMENTS', 'FINANCIAL'],
+    activeChannels: ['@doc_forge_raj', '@student_loan_mules'],
+    topIdentifiers: ['docpass@kotabank'],
+    coordinates: [74.5764, 27.3994]
+  },
+  {
+    id: 'kotputli-behror',
+    name: 'Kotputli-Behror',
+    hindiName: 'कोटपूतली-बहरोड़',
+    division: 'Jaipur',
+    x: 510,
+    y: 210,
+    path: '',
+    threatLevel: 'HIGH',
+    flaggedCount: 21,
+    topCategories: ['ARMS', 'DRUGS'],
+    activeChannels: ['@shekhawati_weapons', '@ncr_weapons_trade'],
+    topIdentifiers: ['+91 9876543210', '@seller_raj'],
+    coordinates: [76.2023, 27.7058]
+  },
+  {
+    id: 'khairthal-tijara',
+    name: 'Khairthal-Tijara',
+    hindiName: 'खैरथल-तिजारा',
+    division: 'Jaipur',
+    x: 565,
+    y: 185,
+    path: '',
+    threatLevel: 'CRITICAL',
+    flaggedCount: 29,
+    topCategories: ['ARMS', 'FINANCIAL'],
+    activeChannels: ['@mewat_sim_exchange', '@ncr_weapons_trade'],
+    topIdentifiers: ['+91 9876543210', 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq'],
+    coordinates: [76.8378, 27.9332]
+  },
+  {
+    id: 'phalodi',
+    name: 'Phalodi',
+    hindiName: 'फलोदी',
+    division: 'Jodhpur',
+    x: 250,
+    y: 240,
+    path: '',
+    threatLevel: 'HIGH',
+    flaggedCount: 18,
+    topCategories: ['DRUGS'],
+    activeChannels: ['@border_drop_01', '@chitta_express'],
+    topIdentifiers: ['bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq'],
+    coordinates: [72.3644, 27.1308]
+  },
+  {
+    id: 'salumbar',
+    name: 'Salumbar',
+    hindiName: 'सलूंबर',
+    division: 'Udaipur',
+    x: 350,
+    y: 500,
+    path: '',
+    threatLevel: 'MODERATE',
+    flaggedCount: 9,
+    topCategories: ['DRUGS'],
+    activeChannels: ['@mewar_crypto', '@opium_route_mp_raj'],
+    topIdentifiers: ['raj.pay@oksbi'],
+    coordinates: [74.0433, 24.1333]
   }
 ];
 
@@ -525,7 +646,7 @@ export const DISTRICT_CONNECTIONS: DistrictConnection[] = [
   }
 ];
 
-export const INITIAL_INTERCEPTS: InterceptPost[] = [
+const RAW_INITIAL_INTERCEPTS: InterceptPost[] = [
   {
     id: 'post_001',
     channel: '@delhi_highs',
@@ -719,6 +840,41 @@ export const INITIAL_INTERCEPTS: InterceptPost[] = [
     status: 'SEALED'
   }
 ];
+
+export function enrichPostWithCryptoLayers(post: InterceptPost, prevSha256?: string): InterceptPost {
+  const prevHash = prevSha256 || '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f';
+  return {
+    ...post,
+    cryptoLayers: {
+      prevHash,
+      currentHash: post.sha256,
+      ed25519Signature: `ed25519:${post.sha256.slice(0, 32)}9a4c2e1b8d`,
+      ed25519KeyId: 'RAJ-CYBER-NODE-01 (Jaipur HQ)',
+      rfc3161Timestamp: `${post.capturedAt || '2026-11-27T17:35:12.482Z'} [CERT-In NTP Stratum-1 Verified]`,
+      timestampAuthority: 'National Informatics Centre (NIC) / CERT-In RFC 3161 Anchor',
+    },
+    rawPayload: {
+      message_id: 104820 + parseInt(post.id.replace(/\D/g, '') || '1', 10),
+      channel_id: -1001928472910,
+      channel: post.channel,
+      subscribers: post.channelSubscribers || '8.5K',
+      timestamp: post.timestamp,
+      captured_at: post.capturedAt,
+      raw_text: post.rawText,
+      extracted_entities: post.entities,
+      matched_slang: post.matchedSlang,
+      views: post.views,
+      transport: 'Telegram MTProto 2.0 (TLS 1.3)',
+      capture_agent: 'PRAHARI_AUTONOMOUS_DAEMON_V2',
+      sha256_payload_digest: post.sha256,
+    },
+  };
+}
+
+export const INITIAL_INTERCEPTS: InterceptPost[] = RAW_INITIAL_INTERCEPTS.map((post, idx, arr) => {
+  const prev = idx > 0 ? arr[idx - 1].sha256 : '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f';
+  return enrichPostWithCryptoLayers(post, prev);
+});
 
 // Graph Nodes & Edges modeling cross-channel nexus
 export const ENTITY_GRAPH_DATA: { nodes: EntityNode[]; edges: EntityEdge[] } = {

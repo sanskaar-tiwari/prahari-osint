@@ -14,14 +14,14 @@ export const WarMonitorBootLoader: React.FC<WarMonitorBootLoaderProps> = ({ onCo
   const bootLogs = [
     "[INT] Connecting to Telethon Telegram OSINT aggregators...",
     "[INT] Initializing Rajasthan UPI Escrow monitoring endpoints...",
-    "[SEC] Loading District Threat Matrix (33 Rajasthan jurisdictions)...",
+    "[SEC] Loading District Threat Matrix (41 Rajasthan districts across 7 divisions)...",
     "[SEC] Loading Hinglish illicit trade dictionary (4,280 terms)...",
     "[SEC] Initializing Cross-Channel Entity Correlation Engine...",
     "[HUD] Loading Mapbox Dark vector district geometries...",
     "[VIS] Configuring Palantir Gotham tactical telemetry overlays...",
     "[CAM] Indexing CCTV and transport checkpoints in Jaipur/Jodhpur...",
     "[AIS] Connecting to border surveillance relays (Barmer/Jaisalmer)...",
-    "[BNK] Verifying Section 65B tamper-evident forensic hash vault...",
+    "[BNK] Verifying Section 63 BSA hash-chained tamper-evident forensic vault...",
     "[OK] All tactical telemetry layers active & verified.",
     "[OK] PRAHARI OSINT Command Center ready. Welcome, Operator."
   ];

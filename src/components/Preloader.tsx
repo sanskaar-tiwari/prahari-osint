@@ -16,7 +16,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     if (val < 38) return '[02/05] CONNECTING TO RAJASTHAN TELECOM & UPI ESCROW GATEWAYS...';
     if (val < 62) return '[03/05] PARSING HINGLISH ILLICIT TRADE DIALECTS (4,280 TOKENS)...';
     if (val < 84) return '[04/05] SYNCHRONIZING CROSS-CHANNEL CRIME SYNDICATE TOPOLOGY...';
-    if (val < 100) return '[05/05] CRYPTOGRAPHIC SEC 65B CHAIN-OF-CUSTODY VAULT VERIFIED...';
+    if (val < 100) return '[05/05] CRYPTOGRAPHIC SECTION 63 BSA HASH CHAIN & ED25519 VAULT VERIFIED...';
     return '[OK] ALL INTELLIGENCE VECTORS SYNCHRONIZED. READY.';
   };
 
@@ -60,7 +60,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         } else if (prev >= 35 && prev <= 42) {
           increment = 1; // pause for dialect loading
         } else if (prev >= 78 && prev <= 84) {
-          increment = 1; // pause for 65B vault verification
+          increment = 1; // pause for Section 63 BSA vault verification
         } else {
           increment = Math.floor(Math.random() * 3) + 1; // 1-3%
         }

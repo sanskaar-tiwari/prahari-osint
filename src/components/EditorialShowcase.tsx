@@ -250,7 +250,7 @@ export const EditorialShowcase: React.FC<EditorialShowcaseProps> = ({
             <div className="bg-[#0d121a] p-4 rounded-xl border border-slate-800">
               <div className="text-2xl sm:text-3xl font-black text-red-400">100%</div>
               <div className="text-[11px] text-slate-400 uppercase tracking-wider mt-1">
-                SEC 65B EVIDENCE SEALED
+                SEC 63 BSA COMPLIANT
               </div>
             </div>
           </div>
@@ -394,7 +394,7 @@ export const EditorialShowcase: React.FC<EditorialShowcaseProps> = ({
               </div>
               <div className="text-sm font-bold font-mono text-white mb-1">ALERT</div>
               <div className="text-xs text-slate-400 leading-relaxed">
-                High-density GIS district map, cryptographic SHA-256 seal, and court-admissible PDF dossier export.
+                High-density GIS district map (41 districts across 7 divisions), four-layer hash chain, and Section 63 BSA forensic dossier export.
               </div>
             </div>
           </div>
@@ -528,10 +528,10 @@ export const EditorialShowcase: React.FC<EditorialShowcaseProps> = ({
             05 // FORENSIC CHAIN OF CUSTODY
           </div>
           <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-white mb-4">
-            COURT-READY INTELLIGENCE. NOT A SCREENSHOT.
+            FORENSIC INTEGRITY & SECTION 63 BSA COMPLIANCE.
           </h2>
           <p className="text-slate-400 text-sm max-w-2xl mb-10">
-            Social media screenshots are easily disputed in court. Every post flagged by PRAHARI is cryptographically stamped with SHA-256 and structured for Section 65B Indian Evidence Act admissibility.
+            Social media screenshots are easily disputed in court. Every post intercepted by PRAHARI is secured via a four-layer cryptographic integrity pipeline (hash chain, Ed25519 signature, RFC 3161 timestamp, raw wire JSON) structured to support Section 63 Bharatiya Sakshya Adhiniyam (BSA) 2023 forensic compliance.
           </p>
 
           {/* Dossier Card Preview */}
@@ -591,7 +591,7 @@ export const EditorialShowcase: React.FC<EditorialShowcaseProps> = ({
                     className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white px-4 py-2 rounded-lg text-xs font-bold transition-all shadow-[0_0_15px_rgba(255,59,48,0.3)]"
                   >
                     <FileText className="w-3.5 h-3.5" />
-                    <span>DOWNLOAD SECTION 65B PDF REPORT</span>
+                    <span>DOWNLOAD SECTION 63 BSA REPORT</span>
                   </button>
                 </div>
               </div>
@@ -717,7 +717,7 @@ export const EditorialShowcase: React.FC<EditorialShowcaseProps> = ({
                 <tr>
                   <td className="p-4 text-slate-400 font-medium">Court Admissibility / Evidence</td>
                   <td className="p-4 text-slate-400">Loose screenshots (Contestable)</td>
-                  <td className="p-4 text-cyan-300 font-bold">Cryptographic SHA-256 + Sec 65B PDF</td>
+                  <td className="p-4 text-cyan-300 font-bold">Four-Layer Hash Chain + Sec 63 BSA PDF</td>
                 </tr>
                 <tr>
                   <td className="p-4 text-slate-400 font-medium">Geospatial Intelligence</td>

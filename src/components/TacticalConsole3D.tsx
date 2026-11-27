@@ -189,7 +189,7 @@ export const TacticalConsole3D: React.FC<TacticalConsole3DProps> = ({
 
             <div className="mt-3 flex items-center justify-between text-[10px] text-slate-400 pt-2 border-t border-slate-900">
               <span className="text-cyan-400 font-mono">HERO IDENTIFIER LINK DETECTED</span>
-              <span className="text-emerald-400 font-mono font-semibold">● SEC 65B READY</span>
+              <span className="text-emerald-400 font-mono font-semibold">● SEC 63 BSA COMPLIANT</span>
             </div>
           </div>
 

@@ -779,7 +779,7 @@ export const GlobalOsintSearchModal: React.FC<GlobalOsintSearchModalProps> = ({
               <span>PRAHARI OSINT KERNEL // SHA-256 LEDGER READY</span>
             </div>
             <div className="flex items-center gap-3">
-              <span>Section 65B(4) IEA Compliant</span>
+              <span>Section 63 BSA Compliant · Hash Chain Active</span>
               <span className="text-slate-600">|</span>
               <span className="text-cyan-400">Press ESC to exit</span>
             </div>

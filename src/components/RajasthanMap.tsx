@@ -39,7 +39,7 @@ export const normalizeDistrictName = (rawName?: string | null): string => {
   return DISTRICT_NAME_NORMALIZATION[clean] || rawName.trim();
 };
 
-// Static coordinate fallback table for all 33 Rajasthan districts
+// Static coordinate fallback table for 41 Rajasthan districts across 7 divisions
 const DISTRICT_COORDINATES: Record<string, [number, number]> = {
   churu: [74.695, 28.3439],
   jhunjhunu: [75.5499, 28.092],
@@ -77,6 +77,20 @@ const DISTRICT_COORDINATES: Record<string, [number, number]> = {
   hanumangarh: [74.5623, 29.266],
   bikaner: [73.174, 28.177],
   pratapgarh: [74.6514, 24.029],
+  balotra: [72.2415, 25.8339],
+  beawar: [74.3235, 26.1033],
+  deeg: [77.3275, 27.4722],
+  'didwana-kuchaman': [74.5764, 27.3994],
+  didwana: [74.5764, 27.3994],
+  kuchaman: [74.8622, 27.1472],
+  'kotputli-behror': [76.2023, 27.7058],
+  kotputli: [76.2023, 27.7058],
+  behror: [76.2825, 27.8872],
+  'khairthal-tijara': [76.8378, 27.9332],
+  khairthal: [76.8378, 27.9332],
+  tijara: [76.8525, 27.9322],
+  phalodi: [72.3644, 27.1308],
+  salumbar: [74.0433, 24.1333],
 };
 
 interface RajasthanMapProps {
@@ -183,6 +197,16 @@ export const RajasthanMap: React.FC<RajasthanMapProps> = ({
     <div className="relative w-full h-full bg-[#070A10] overflow-hidden flex flex-col select-none touch-none">
       {/* Soft background grid - 5% opacity per Palantir/Mapbox spec */}
       <div className="absolute inset-0 radar-grid opacity-5 pointer-events-none" />
+
+      {/* Floating Administrative Structure Badge (Top Left) */}
+      <div className="absolute top-3.5 left-4 z-20 hidden sm:flex items-center gap-2">
+        <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-xl text-xs font-mono">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          <span className="text-white font-semibold">RAJASTHAN MESH</span>
+          <span className="text-slate-500">|</span>
+          <span className="text-cyan-300 font-bold">41 DISTRICTS · 7 DIVISIONS</span>
+        </div>
+      </div>
 
       {/* Floating Compact Glass Toolbar (Top Center/Right) */}
       <div className="absolute top-3.5 right-4 z-20 flex items-center gap-2">

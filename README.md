@@ -4,7 +4,7 @@
 
 [![React](https://img.shields.io/badge/Frontend-React_18_%2B_Vite_%2B_TypeScript-00E5FF?style=for-the-badge&logo=react)](https://react.dev/)
 [![FastAPI](https://img.shields.io/badge/Backend-Python_FastAPI_%2B_SQLite-10B981?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
-[![Legal Compliance](https://img.shields.io/badge/Evidence_Act-Sec_65B(4)_IEA_%2B_Sec_63_BSA-F43F5E?style=for-the-badge)](https://indiankanoon.org/doc/1712542/)
+[![Legal Compliance](https://img.shields.io/badge/Evidence_Act-Sec_63_BSA_Compliant-F43F5E?style=for-the-badge)](https://indiankanoon.org/doc/1712542/)
 [![Audio Synthesizer](https://img.shields.io/badge/Sound_Engine-Web_Audio_API-F59E0B?style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
@@ -29,7 +29,7 @@ It autonomously monitors public Telegram channels, social media broadcasts, and 
 ---
 
 ### 2. Live Surveillance Command Center & GIS Rajasthan Map
-*Geospatial intelligence mesh covering all 33 Rajasthan districts with real-time criminal syndicate arcs, radar sweeps, and live signal telemetry.*
+*Geospatial intelligence mesh covering all 41 Rajasthan districts across 7 divisions with real-time criminal syndicate arcs, radar sweeps, and live signal telemetry.*
 ![Command Center](docs/screenshots/02-command-center.png)
 
 ---
@@ -41,7 +41,7 @@ It autonomously monitors public Telegram channels, social media broadcasts, and 
 ---
 
 ### 4. Skeuomorphic Forensic Dossier (Evidence Scrapbook Binder)
-*Investigative case binder laid out across a detective's desk with tilted polaroids, brass paperclips, Section 65B transcript, and interactive 3D Red Wax Seal.*
+*Investigative case binder laid out across a detective's desk with tilted polaroids, brass paperclips, Section 63 BSA transcript, and interactive 3D Red Wax Seal.*
 ![Forensic Dossier](docs/screenshots/04-forensic-dossier.png)
 
 ---
@@ -52,9 +52,9 @@ It autonomously monitors public Telegram channels, social media broadcasts, and 
 
 ---
 
-### 6. Court-Admissible Section 65B Evidence PDF Export
-*Two-tier statutory evidence dossier with FIPS-180-4 SHA-256 payload integrity, dual system witness, and Investigating Officer (I.O.) endorsement block.*
-![Section 65B PDF](docs/screenshots/06-sec65b-court-pdf.png)
+### 6. Section 63 BSA Forensic Evidence PDF Export
+*Two-tier statutory evidence dossier following Schedule to Section 63(4) of the Bharatiya Sakshya Adhiniyam, 2023 with four-layer cryptographic integrity (hash chain, Ed25519 signature, RFC 3161 timestamp, raw wire JSON) and dedicated Part A (Investigating Officer) and Part B (Digital Forensics Expert) declarations.*
+![Section 63 BSA PDF](docs/screenshots/06-sec65b-court-pdf.png)
 
 ---
 
@@ -81,7 +81,7 @@ It autonomously monitors public Telegram channels, social media broadcasts, and 
 - **Dialect Support**: Hindi, Hinglish, Marwari/Rajasthani regional slang, Romanized terms, and disguised emoji ciphers.
 
 ### 2. Rajasthan Tactical GIS Surveillance Map
-- **High-Resolution Geo-Mesh**: Interactive SVG vector map of all 33 districts of Rajasthan.
+- **High-Resolution Geo-Mesh**: Interactive SVG vector map of all 41 districts across 7 administrative divisions of Rajasthan (effective January 1, 2025).
 - **Dynamic Threat Coloring**: Categorizes jurisdictions into `CRITICAL`, `HIGH`, `ELEVATED`, and `MODERATE` based on live signal density.
 - **Syndicate Arcs**: Visualizes interstate and inter-district trade corridors (e.g., Mewat-Alwar weapons corridor, Sri Ganganagar border drops, Jaipur-Bikaner narcotics transit).
 - **One-Click Case Dossier Access**: Clicking any district instantly filters intelligence and allows opening its dedicated forensic dossier.
@@ -96,16 +96,17 @@ It autonomously monitors public Telegram channels, social media broadcasts, and 
 
 ### 4. Investigative Scrapbook Forensic Dossier
 - **Physical Evidence Collage**: Organizes digital seizures into tangible exhibits with brass paperclips, authenticated Telegram screenshots, and threat tags.
-- **Cryptographic Barcode**: Displays full SHA-256 integrity hash with one-click verification and clipboard copy.
-- **Interactive 3D Red Wax Seal Stamp**: Clicking the wax seal triggers an authentic mechanical stamping audio effect and generates the court-admissible PDF report.
+- **Four-Layer Cryptographic Custody**: Displays append-only Prev-Hash chain, Ed25519 station node signature, RFC 3161 trusted timestamp token, and full SHA-256 integrity hash with one-click verification and clipboard copy.
+- **Raw Wire Payload Inspector**: Inspect and download exact unmodified Telegram MTProto JSON wire artifacts directly from the interface.
+- **Interactive 3D Red Wax Seal Stamp**: Clicking the wax seal triggers an authentic mechanical stamping audio effect and generates the Section 63 BSA certificate PDF.
 - **Archive Volumes Shelf**: 3D embossed leather book interface allowing investigators to browse cases categorized by criminal volume.
 
-### 5. Court-Admissible Section 65B Evidence Compliance
-- Compliant with **Section 65B(4) of the Indian Evidence Act, 1872** and **Section 63 of the Bharatiya Sakshya Adhiniyam, 2023**.
-- Adheres to Supreme Court precedent in ***Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal (2020) 7 SCC 1***:
-  - **Tier 1 (Automated Machine Witness)**: Platform version, UTC/IST timestamp, and FIPS-180-4 SHA-256 payload integrity digest.
-  - **Tier 2 (Human Legal Endorsement)**: Designated Investigating Officer (I.O.) endorsement block with Name, Rank, PPO Number, Police Station, and official seal/stamp area.
-- Precision tabular grid with dynamic height adjustment preventing any text overflow.
+### 5. Section 63 BSA Forensic Evidence Integrity
+- Structured to support **Section 63 of the Bharatiya Sakshya Adhiniyam, 2023** (formerly Section 65B of the Indian Evidence Act, 1872).
+- Follows the statutory format set out in the **Schedule to Section 63(4) of the BSA, 2023** and adheres to Supreme Court precedent in *Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal (2020) 7 SCC 1*:
+  - **Part A (Investigating Officer / Person in Lawful Charge)**: Declaration of custody, management of the intelligence terminal, and confirmation of normal operating parameters without unauthorized interference.
+  - **Part B (Technical / Digital Forensics Expert)**: Cryptographic certification detailing the four verifiable integrity layers (Append-Only Hash Chain, Ed25519 node signature, RFC 3161 Stratum-1 timestamp, and raw payload digest).
+- Precision tabular grid with dynamic height adjustment preventing text truncation or overlap.
 
 ### 6. Tactical Web Audio Sound Engine
 - 100% synthesized in real time via the browser's native **Web Audio API** (zero external MP3 dependencies).
@@ -116,7 +117,7 @@ It autonomously monitors public Telegram channels, social media broadcasts, and 
 - **Instant Cross-Referencing**: Persistent search bar trigger and global hotkey `Cmd + K` / `Ctrl + K` allowing investigators to query any token across all Rajasthan districts, Telegram channels, and forensic evidence records in milliseconds.
 - **Entity Type Auto-Detection**: Live pill detection for `UPI ID`, `PHONE / WHATSAPP`, `TELEGRAM HANDLE`, `CRYPTO WALLET`, `DISTRICT`, and `KEYWORD`.
 - **Inter-District Syndicate Matrix**: Evaluates multi-jurisdiction nexus across districts (e.g. Jaipur [2 FLAGS], Jodhpur [1 FLAG], Sri Ganganagar [1 FLAG]) with aggregate syndicate risk scoring (99% CRITICAL).
-- **Actionable 1-Click Pivots**: Directly plot the multi-district mesh on the GIS map with glowing animated pulse rings and a floating jurisdiction banner, inspect in 3D topology, or open the Section 65B forensic dossier.
+- **Actionable 1-Click Pivots**: Directly plot the multi-district mesh on the GIS map with glowing animated pulse rings and a floating jurisdiction banner, inspect in 3D topology, or open the Section 63 BSA forensic dossier.
 
 ---
 
@@ -151,8 +152,8 @@ It autonomously monitors public Telegram channels, social media broadcasts, and 
 │                                                                        │               │
 │                                                                        ▼               │
 │                                                            ┌───────────────────────┐   │
-│                                                            │ Court-Admissible PDF  │   │
-│                                                            │ (Sec 65B IEA / 63 BSA)│   │
+│                                                            │ Sec 63 BSA Schedule   │   │
+│                                                            │ Certificate Generator │   │
 │                                                            └───────────────────────┘   │
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -228,7 +229,7 @@ prahari-osint/
 │   │   └── mockData.ts              # Rajasthan telemetry, channels, and slang lexicons
 │   ├── utils/
 │   │   ├── audio.ts                 # Web Audio API real-time sound synthesizer
-│   │   └── pdfGenerator.ts          # Section 65B(4) IEA court-admissible PDF engine
+│   │   └── pdfGenerator.ts          # Section 63 BSA Schedule compliant forensic PDF engine
 │   ├── App.tsx                      # Root application component with transitions
 │   └── main.tsx                     # React application entry point
 ├── package.json                     # Frontend dependencies & npm scripts
@@ -241,14 +242,16 @@ prahari-osint/
 
 ## Legal & Evidentiary Framework
 
-In Indian jurisprudence, electronic records admitted under **Section 65B of the Indian Evidence Act, 1872** (now **Section 63 of the Bharatiya Sakshya Adhiniyam, 2023**) require strict proof of non-tampering from capture to presentation:
+In Indian jurisprudence, electronic records admitted under **Section 63 of the Bharatiya Sakshya Adhiniyam, 2023** (formerly Section 65B of the Indian Evidence Act, 1872) require strict proof of non-tampering from capture to presentation, as established in *Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal (2020) 7 SCC 1*:
 
-| Statutory Requirement | PRAHARI Implementation |
+| Statutory Layer | PRAHARI Architecture & Implementation |
 | :--- | :--- |
-| **System Provenance** | Detailed log of the capturing computer system, OSINT collector node ID, and environment parameters. |
-| **Hash Verification** | FIPS-180-4 SHA-256 computed immediately upon packet ingestion and stored in an immutable ledger. |
-| **Tamper Prevention** | Read-only cryptographic custody prevents alteration of raw broadcast text, views, or timestamps. |
-| **Officer Endorsement** | Dedicated signature and designation block ensuring physical or Class-3 DSC sign-off per *Arjun Panditrao Khotkar (2020)*. |
+| **Layer 1: Append-Only Hash Chain** | Every record incorporates the SHA-256 digest of the previous intercept block (`Prev-Hash -> Current SHA-256`), mathematically preventing retroactive database manipulation. |
+| **Layer 2: Station Node Digital Signature** | Asymmetric Ed25519 cryptographic signature generated by the certified station node key (`ED25519:RAJ-CYBER-NODE-01`). |
+| **Layer 3: RFC 3161 Trusted Timestamp** | Time tokens cryptographically anchored to official Stratum-1 NTP sources (`ntp.cert-in.gov.in`). |
+| **Layer 4: Raw Wire Artifact Preservation** | Unmodified Telegram MTProto JSON wire payloads preserved and exportable for independent forensic cross-examination. |
+| **Part A: Responsible Officer Declaration** | Statutory declaration block for the Investigating Officer certifying lawful management of the terminal. |
+| **Part B: Technical Forensics Examiner** | Dedicated certification block for the Digital Forensics Expert detailing cryptographic verification. |
 
 ---
 
@@ -259,8 +262,8 @@ In Indian jurisprudence, electronic records admitted under **Section 65B of the 
 | **Monitoring Volume** | 5 – 10 channels / investigator / day | 1,000s of public channels monitored concurrently |
 | **Slang Detection** | Subjective, misses local dialects & emojis | Automated multi-dialect weighted NLP scoring |
 | **Entity Correlation** | Manual Excel lookup (Hours to Days) | Instant 3D graph topology resolution (< 3s) |
-| **Geospatial Mapping** | Static pins or disconnected spreadsheets | Interactive 33-district GIS mesh with criminal arcs |
-| **Court Admissibility** | Unverified, contestable screenshots | Cryptographic SHA-256 + Court-ready Section 65B PDF |
+| **Geospatial Mapping** | Static pins or disconnected spreadsheets | Interactive 41-district / 7-division GIS mesh with criminal arcs |
+| **Evidentiary Integrity** | Unverified, contestable screenshots | Four-Layer Hash Chain + Section 63 BSA Schedule PDF |
 
 ---
 

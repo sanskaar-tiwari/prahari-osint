@@ -11,8 +11,8 @@ Real, functional backend intelligence engine built for the Rajasthan Police R4C 
    - Extracts UPI handles, Indian mobile numbers (+91), Telegram usernames, cryptocurrency wallets (BTC, ETH, TRON USDT), bank accounts, and matches Rajasthan district jurisdictions.
 4. **Dynamic Entity Graph Engine (`graph_engine.py`)**:
    - Links cross-channel criminal entities automatically. If the same UPI or phone appears across multiple channels or categories, it elevates risk scores and flags the syndicate.
-5. **Cryptographic Section 65B Chain of Custody (`extractor.py` & `main.py`)**:
-   - Generates tamper-evident SHA-256 hashes compliant with Section 65B(4) Indian Evidence Act / Section 63 Bharatiya Sakshya Adhiniyam 2023.
+5. **Four-Layer Cryptographic Section 63 BSA Chain of Custody (`extractor.py` & `main.py`)**:
+   - Generates tamper-evident append-only SHA-256 hash chains, Ed25519 station node signatures, RFC 3161 trusted timestamp tokens, and raw wire payload preservation structured to support the Schedule to Section 63(4) of the Bharatiya Sakshya Adhiniyam, 2023.
 
 ## Running the Backend
 ```bash

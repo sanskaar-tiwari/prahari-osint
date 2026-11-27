@@ -1015,7 +1015,7 @@ export const EntityTopologyPage: React.FC<EntityTopologyPageProps> = ({
               </div>
             </div>
             <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              SEC 65B
+              SEC 63 BSA
             </span>
           </div>
         )}

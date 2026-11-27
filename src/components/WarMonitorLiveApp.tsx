@@ -38,6 +38,7 @@ import {
   RAJASTHAN_DISTRICTS,
   DISTRICT_CONNECTIONS,
   INITIAL_INTERCEPTS,
+  enrichPostWithCryptoLayers,
 } from '../data/mockData';
 import { sound } from '../utils/audio';
 import { generateDossierPDF } from '../utils/pdfGenerator';
@@ -536,7 +537,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                   if (!targetPost) {
                     const category = (district.topCategories[0] || 'DRUGS') as CrimeCategory;
                     const topId = district.topIdentifiers?.[0] || 'raj.pay@oksbi';
-                    targetPost = {
+                    const baseSynthesized: InterceptPost = {
                       id: `case_${district.id}_${Date.now().toString(36).slice(-4)}`,
                       channel: `@${district.id.replace(/-/g, '_')}_syndicate_intel`,
                       channelSubscribers: `${district.flaggedCount || 17}K members`,
@@ -548,6 +549,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                       status: 'FLAGGED',
                       districtId: district.id,
                       districtName: district.name,
+                      divisionName: district.division,
                       sha256: '798fbb739040eeb0bada2d6fa28be16ada33f746b4bd941e31eb0e647722d3ad',
                       views: (district.flaggedCount || 15) * 48,
                       verified: true,
@@ -561,6 +563,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                       matchedSlang: ['consignment', 'drop point', 'escrow payment', 'delivery hub'],
                     };
 
+                    targetPost = enrichPostWithCryptoLayers(baseSynthesized);
                     setPosts((prev) => [targetPost!, ...prev]);
                   }
 
@@ -610,7 +613,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                       <span>Active Intercept Dossier</span>
                     </div>
                     <span className="text-[10px] font-mono text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">
-                      SEC 65B SEALED
+                      SEC 63 BSA COMPLIANT
                     </span>
                   </div>
 
@@ -712,7 +715,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                       );
                       if (!distPost) {
                         const cat = (selectedDistrict.topCategories[0] || 'DRUGS') as CrimeCategory;
-                        distPost = {
+                        const rawDistPost: InterceptPost = {
                           id: `case_${selectedDistrict.id}_${Date.now().toString(36).slice(-4)}`,
                           channel: `@${selectedDistrict.id.replace(/-/g, '_')}_syndicate_intel`,
                           channelSubscribers: `${selectedDistrict.flaggedCount || 17}K members`,
@@ -724,6 +727,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                           status: 'FLAGGED',
                           districtId: selectedDistrict.id,
                           districtName: selectedDistrict.name,
+                          divisionName: selectedDistrict.division,
                           sha256: '798fbb739040eeb0bada2d6fa28be16ada33f746b4bd941e31eb0e647722d3ad',
                           views: (selectedDistrict.flaggedCount || 15) * 48,
                           verified: true,
@@ -736,6 +740,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                           },
                           matchedSlang: ['consignment', 'drop point', 'escrow payment', 'delivery hub'],
                         };
+                        distPost = enrichPostWithCryptoLayers(rawDistPost);
                         setPosts((prev) => [distPost!, ...prev]);
                       }
                       setSelectedPost(distPost);

@@ -317,7 +317,7 @@ export const LiveInterceptFeed: React.FC<LiveInterceptFeedProps> = ({
                   )}
 
                   <span className="text-emerald-400 font-sans text-[10px]">
-                    Sec 65B ✓
+                    Sec 63 BSA ✓
                   </span>
                 </div>
               </div>
