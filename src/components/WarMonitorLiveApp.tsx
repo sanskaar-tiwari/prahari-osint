@@ -686,7 +686,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                   </div>
 
                   {/* Tactical Intercept Selector Dropdown */}
-                  <div>
+                  <div className="relative">
                     <select
                       aria-label="Select Active Intercept"
                       value={selectedPost.id}
@@ -705,7 +705,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                           }
                         }
                       }}
-                      className="w-full bg-[#070A10] border border-white/[0.1] hover:border-cyan-500/40 text-slate-200 text-[11px] font-mono rounded-lg px-2.5 py-2 focus:outline-none focus:border-cyan-400 transition-colors cursor-pointer"
+                      className="w-full appearance-none bg-[#070A10] border border-white/[0.1] hover:border-cyan-500/40 text-slate-200 text-[11px] font-mono rounded-lg pl-3 pr-9 py-2 focus:outline-none focus:border-cyan-400 transition-colors cursor-pointer"
                     >
                       {activeFilteredPosts.map((p) => {
                         const cat = p.categories[0] || 'INTEL';
@@ -720,6 +720,7 @@ export const WarMonitorLiveApp: React.FC<WarMonitorLiveAppProps> = ({ onOpenEdit
                         );
                       })}
                     </select>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2" />
                   </div>
 
                   {/* Channel & Confidence */}
