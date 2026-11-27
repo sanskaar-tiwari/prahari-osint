@@ -27,7 +27,7 @@ const UPSTREAM_RAJASTHAN_GEOJSON_URL =
   'https://raw.githubusercontent.com/udit-001/india-maps-data/main/geojson/states/rajasthan.geojson';
 
 // Local bundled 41-district fallback GeoJSON
-const LOCAL_FALLBACK_GEOJSON_URL = '/rajasthan_districts.geojson';
+const LOCAL_FALLBACK_GEOJSON_URL = '/rajasthan.geojson';
 
 const CACHE_KEY = 'prahari_rajasthan_geojson_v3';
 const CACHE_TIMESTAMP_KEY = 'prahari_rajasthan_geojson_ts_v3';
