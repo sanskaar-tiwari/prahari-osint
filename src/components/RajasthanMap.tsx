@@ -217,80 +217,83 @@ export const RajasthanMap: React.FC<RajasthanMapProps> = ({
       {/* Soft background grid - 5% opacity per Palantir/Mapbox spec */}
       <div className="absolute inset-0 radar-grid opacity-5 pointer-events-none" />
 
-      {/* Floating Administrative Structure Badge (Top Left) */}
-      <div className="absolute top-3.5 left-4 z-20 hidden md:flex items-center gap-2">
-        <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-2.5 py-1 rounded-xl flex items-center gap-1.5 shadow-xl text-[11px] font-mono">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="text-white font-semibold">RAJASTHAN MESH</span>
-          <span className="text-slate-500">|</span>
-          <span className="text-cyan-300 font-bold">41 DISTRICTS · 7 DIVISIONS</span>
+      {/* Top Map Header Bar: Badge (Left) + Controls (Right) */}
+      <div className="absolute top-3.5 left-4 right-4 z-20 flex items-center justify-between gap-2 pointer-events-none">
+        {/* Floating Administrative Structure Badge */}
+        <div className="hidden lg:flex items-center gap-2 pointer-events-auto">
+          <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-2.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-xl text-[10px] xl:text-[11px] font-mono whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shrink-0" />
+            <span className="text-white font-semibold">RAJASTHAN</span>
+            <span className="text-slate-500">|</span>
+            <span className="text-cyan-300 font-bold">41 DISTRICTS · 7 DIVISIONS</span>
+          </div>
         </div>
-      </div>
 
-      {/* Floating Compact Glass Toolbar (Top Center/Right) */}
-      <div className="absolute top-3.5 right-4 z-20 flex items-center gap-2">
-        <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-2.5 py-1.5 rounded-xl flex items-center gap-2 shadow-xl">
-          <button
-            onClick={() => {
-              sound.playClick();
-              setShowArcs(!showArcs);
-            }}
-            className={`px-2 py-0.5 rounded text-[11px] font-sans font-medium transition-all ${
-              showArcs
-                ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            Syndicate Arcs
-          </button>
+        {/* Floating Compact Glass Toolbar */}
+        <div className="ml-auto flex items-center gap-2 pointer-events-auto">
+          <div className="bg-[#0C101A]/85 backdrop-blur-md border border-white/[0.08] px-2.5 py-1.5 rounded-xl flex items-center gap-2 shadow-xl">
+            <button
+              onClick={() => {
+                sound.playClick();
+                setShowArcs(!showArcs);
+              }}
+              className={`px-2 py-0.5 rounded text-[11px] font-sans font-medium transition-all ${
+                showArcs
+                  ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              Syndicate Arcs
+            </button>
 
-          <button
-            onClick={() => {
-              sound.playClick();
-              setShowRadar(!showRadar);
-            }}
-            className={`px-2 py-0.5 rounded text-[11px] font-sans font-medium transition-all ${
-              showRadar
-                ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            Radar Pulse
-          </button>
+            <button
+              onClick={() => {
+                sound.playClick();
+                setShowRadar(!showRadar);
+              }}
+              className={`px-2 py-0.5 rounded text-[11px] font-sans font-medium transition-all ${
+                showRadar
+                  ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              Radar Pulse
+            </button>
 
-          <div className="h-3.5 w-px bg-white/[0.08] mx-0.5" />
+            <div className="h-3.5 w-px bg-white/[0.08] mx-0.5" />
 
-          <button
-            onClick={() => {
-              sound.playClick();
-              setZoomLevel((prev) => Math.min(prev + 0.3, 4));
-            }}
-            className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/[0.05]"
-            title="Zoom In"
-          >
-            <ZoomIn className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={() => {
-              sound.playClick();
-              setZoomLevel((prev) => Math.max(prev - 0.3, 0.8));
-            }}
-            className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/[0.05]"
-            title="Zoom Out"
-          >
-            <ZoomOut className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={() => {
-              sound.playClick();
-              setZoomLevel(1);
-              setMapCenter(DEFAULT_CENTER);
-            }}
-            className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/[0.05]"
-            title="Reset View"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-          </button>
+            <button
+              onClick={() => {
+                sound.playClick();
+                setZoomLevel((prev) => Math.min(prev + 0.3, 4));
+              }}
+              className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/[0.05]"
+              title="Zoom In"
+            >
+              <ZoomIn className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => {
+                sound.playClick();
+                setZoomLevel((prev) => Math.max(prev - 0.3, 0.8));
+              }}
+              className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/[0.05]"
+              title="Zoom Out"
+            >
+              <ZoomOut className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => {
+                sound.playClick();
+                setZoomLevel(1);
+                setMapCenter(DEFAULT_CENTER);
+              }}
+              className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/[0.05]"
+              title="Reset View"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -429,16 +432,23 @@ export const RajasthanMap: React.FC<RajasthanMapProps> = ({
                         />
                       )}
 
-                      {/* State Perimeter Boundary */}
-                      {outline?.svgPath && (
-                        <path
-                          d={outline.svgPath}
-                          fill="none"
-                          stroke="rgba(34, 211, 238, 0.35)"
-                          strokeWidth={1.2}
-                          pointerEvents="none"
-                        />
-                      )}
+                      {/* State Perimeter Boundary (True Outer Border Only - excludes any internal cut segments) */}
+                      {outline?.svgPath && (() => {
+                        const subpaths = outline.svgPath.split(/(?=M)/g).filter(Boolean);
+                        const statePerimeter = subpaths.reduce(
+                          (longest, curr) => (curr.length > longest.length ? curr : longest),
+                          ''
+                        );
+                        return statePerimeter ? (
+                          <path
+                            d={statePerimeter}
+                            fill="none"
+                            stroke="rgba(34, 211, 238, 0.35)"
+                            strokeWidth={1.2}
+                            pointerEvents="none"
+                          />
+                        ) : null;
+                      })()}
 
                       {/* Smooth Curved Syndicate Arcs */}
                       {showArcs &&
